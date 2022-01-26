@@ -19,6 +19,9 @@ const Kontak = () => {
             <div className='pt-10'>
                 <iframe className='rounded shadow-2xl' width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Jl.%20Amil%20No.27b,%20RT.2/RW.5,%20Kalibata,%20Kec.%20Pancoran,%20Kota%20Jakarta%20Selatan,%20Daerah%20Khusus%20Ibukota%20Jakarta%2012510+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/sport-gps/">swimming watch</a></iframe>
             </div>
+            <div>
+            
+            </div>
         </div>
     )
 }

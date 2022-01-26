@@ -1,9 +1,9 @@
 import React,{useState} from 'react'
 import { data } from './data'
 import pic from "../../img/Group 5.png"
-import bitcoin from "/home/fakhrilak/Documents/PROGRAM/REACTJS/websekolah/src/img/Bitcoin Cryptocurrency.png"
-import kalender from "/home/fakhrilak/Documents/PROGRAM/REACTJS/websekolah/src/img/2012.png"
-import chart from "/home/fakhrilak/Documents/PROGRAM/REACTJS/websekolah/src/img/Pie Chart.png"
+import bitcoin from "../../img/Bitcoin Cryptocurrency.png"
+import kalender from "../../img/2012.png"
+import chart from "../../img/Pie Chart.png"
 import SimpleImageSlider from "react-simple-image-slider";
 import gambar1 from "../../img/gambar1.png"
 import donasi1 from "../../img/donasi 1.png"
@@ -18,11 +18,11 @@ const Home = (props) => {
     const { innerWidth: width, innerHeight: height } = window;
     return (
         <div>
-            <div className='w-full'>
-                <div className='w-9/12 m-auto pb-2 pt-2'>
+            <div className='w-12/12'>
+                {/* <div className='w-10/12 m-auto pb-5 pt-2'>
                     <p className='font-bold text-2xl text-gray-700'>YAYASAN PENDIDIKAN</p>
                     <p  className='font-bold text-2xl text-gray-700'>KHAIRIYAH MANSURIYAH</p>
-                </div>
+                </div> */}
                 <div className='w-full'>
                     <SimpleImageSlider
                     width={width}

@@ -7,9 +7,13 @@ import {useHistory} from "react-router-dom"
 const Navbar = (props) => {
     const history = useHistory()
     return (
-        <div className="h-20 border-b-2 border-gray-300 fixed z-40 bg-white w-full">
-            <a className="float-left"><img className="w-16 ml-2 mt-2" onClick={()=>history.push("/")} src={logo}/></a>
-            <div className="navbar mr-10">
+        <div className="h-28 border-b-2 border-gray-300 fixed z-40 bg-white w-full shadow-lg">
+            <a className="float-left"><img className="ml-20 w-20 ml-2 mt-4" onClick={()=>history.push("/")} src={logo}/></a>
+            <a className="float-left ml-3 mt-8">
+                <p className='font-bold text-gray-700'>YAYASAN PENDIDIKAN</p>
+                <p className='font-bold text-gray-700'>KHAIRIYAH MANSURIYAH</p>
+            </a>
+            <div className="navbar mr-10 mt-8">
                 {props.auth ? <a onClick={()=>{
                     localStorage.removeItem("token")
                     window.location.reload()

@@ -3,8 +3,8 @@ import React from 'react'
 const Foother = () => {
     return (
         <div className='w-full bg-[#80BA83] h-15 text-center'>
-            <footer className='pt-5'>
-                <div className='w-10/12 grid grid-cols-2 gap-5 m-auto'>
+            <footer className='pt-5 pb-5'>
+                {/* <div className='w-10/12 grid grid-cols-2 gap-5 m-auto'>
                     <div className='text-right'>
                         <p className='font-bold text-3xl'>Yayasan Pendidikan</p>
                         <p className='font-bold text-3xl'>Khairiyah Mansuriyah</p>
@@ -20,9 +20,8 @@ const Foother = () => {
                         <p className='text-sm'>Email: yayasanalmansuriyah28@gmail.com</p>
                         <p className='text-sm'>HP: 087883395159</p>
                     </div>
-                </div>
-                <div className='pt-5'/>
-                <p className='font-serif font-bold'>
+                </div> */}
+                <p className=''>
                 Copyright @2020 YPKM All Rights Reserved
                 </p>
             </footer>

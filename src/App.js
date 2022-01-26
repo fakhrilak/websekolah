@@ -42,7 +42,7 @@ function App() {
             <div>
               <Navbar auth={auth}/>
             </div>
-            <div>
+            <div className="pt-32 w-12/12">
               <Switch>
                 <Route exact path="/">
                     <Home data={data}/>
