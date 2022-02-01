@@ -12,6 +12,7 @@ import MadrasahIbtidaiyah from './Pages/Madrasah/MadrasahIbtidaiyah';
 import MadrsahStanawiyah from './Pages/Madrasah/MadrsahStanawiyah';
 import Sejarah from './Pages/Profile/Sejarah';
 import Visimisi from './Pages/Profile/Visimisi';
+import Smpi from './Pages/Smpi/Smpi';
 import Tk from './Pages/TK/Tk';
 import Uploads from './Pages/Uploads/Uploads';
 function App() {
@@ -52,6 +53,7 @@ function App() {
                 <Route exact path="/tk" component={Tk}/>
                 <Route exact path="/mi" component={MadrasahIbtidaiyah}/>
                 <Route exact path="/mts" component={MadrsahStanawiyah}/>
+                <Route exact path="/smpi" component={Smpi}/>
                 <Route exact path="/kontak" component={Kontak}/>
                 <Route exact path="/uploads">
                   <Uploads auth={auth}/>

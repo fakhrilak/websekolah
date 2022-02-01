@@ -6,6 +6,7 @@ import kalender from "../../img/2012.png"
 import chart from "../../img/Pie Chart.png"
 import SimpleImageSlider from "react-simple-image-slider";
 import gambar1 from "../../img/gambar1.png"
+import gambar2 from "../../img/img1.jpeg"
 import donasi1 from "../../img/donasi 1.png"
 import { path, url } from '../../config/API'
 const Home = (props) => {
@@ -33,7 +34,7 @@ const Home = (props) => {
                     />
                 </div>
             </div>
-            <div className='mt-20'>
+            {/* <div className='mt-20'>
                     <div className='w-11/12 m-auto text-center'>
                         <p className='text-2xl font-bold'>Lorem Ipsum</p>
                         <p className='text-2xl font-bold'>dummy text of the</p>
@@ -72,19 +73,17 @@ const Home = (props) => {
                                     </div>
                             </div>
                     </div>
+            </div> */}
+            <div className='w-10/12 m-auto pt-20 pb-5 rounded'>
+                    <div className="w-9/12 lg:w-5/12 m-auto rounded">
+                        <p className='font-bold text-sm'>Informasi Donasi dan Sedekah Pendidikan</p>
+                    </div>
+                    <img src={donasi1} className='pt-5 w-9/12 lg:w-5/12 m-auto'/>
             </div>
-
-            <div className='w-10/12 m-auto pt-20 pb-20'>
-                <div className='w-full grid grid-cols-3 gap-2'>
-                    <div className='col-span-2'>
-                        <img src={gambar1} className='mt-2 rounded'/>
-                        <img src={gambar1} className='mt-2 rounded'/>
-                    </div>
-                    <div className='rounded'>
-                        <p className='font-bold'>Informasi Donasi</p>
-                        <p className='font-bold'>dan Sedekah Pendidikan</p>
-                        <img src={donasi1} className='pt-5 rounded'/>
-                    </div>
+            <div className='w-10/12 m-auto'>
+                <div className='w-full grid grid-cols-2 gap-2'>
+                        <img src={gambar1} className='mt-2 h-80'/>
+                        <img src={gambar2} className='mt-2 h-80'/>
                 </div>
             </div>
             

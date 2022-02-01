@@ -1,5 +1,5 @@
 import axios from 'axios';
-export const url = "http://192.168.10.170:4008"
+export const url = "https://iot-service.zilog.tech"
 export const API = axios.create({baseURL: url+`/be/v1/mansyuriyah`});
 // Alter defaults after instance has been created
 export const setAuthToken = (token) => {

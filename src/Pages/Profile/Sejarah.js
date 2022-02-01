@@ -7,7 +7,7 @@ const Sejarah = () => {
                 <p className='font-bold text-3xl'>Latar Belakang</p>
                 <p className='font-bold text-3xl'>Yayasan Pendidikan Khairiyah Mansuriyah</p>
             </div>
-            <div className='pt-20 grid grid-cols-4 gap-10'>
+            <div className='pt-20 lg:grid lg:grid-cols-4 gap-10'>
                 <div className='col-span-3 text-justify'>
                     <p>
                     Yayasan Pendidikan Khairiyah Mansuriyah didirikan oleh K.H. M. Mansur yang lebih dikenal dengan panggilan Guru Mansur mendirikan sekolah formal “Madrasah” di Sawah Lio Jembatan Lima pada akhir tahun 1960-an yang kemudian lebih dikenal dengan sebutan “Nahdo”. Seiring perjalanan waktu Yayasan Al Mansuriyah telah menaungi beberapa sekolah yakni ; TK/RA, MI, MTs dan SMPI. Mengikuti peraturan dalam UU No.16 Tahun 2001 tentang Yayasan jo UU No.28 Tahun 2004 perubahannya, Yayasan Al Mansuriyah telah mendapat pengesahan dari Kementerian Hukum dan HAM Nomor : AHU-8243.AH.01.04. Tahun 2012 tertanggal 20 Desember 2012 dengan nama YAYASAN PENDIDIKAN KHAIRIYAH MANSURIYAH (YPKM)

@@ -1,10 +1,11 @@
 import React from 'react'
 
-const MadrasahIbtidaiyah = () => {
+function Smpi() {
     return (
-        <div className='w-10/12 m-auto'>
+        <div>
+            <div className='w-10/12 m-auto'>
             <div className='pt-10'>
-                <h1 className='font-bold text-xl lg:text-3xl'>Madrasah Ibtidaiyah</h1>
+                <h1 className='font-bold text-xl lg:text-3xl'>MTs – SMPI</h1>
                 <p className='mt-5 mb-5 text-sm text-justify lg:text-base'>Madrasah/sekolah dalam lingkup YPKM masih menjadi salah satu lembaga yg diminati masyarakat jembatan lima dan sekitarnya. Hal
                 ini antara lain karena:</p>
                 <p className="text-sm text-justify lg:text-base">1 . Tingkat kelulusan 100%</p>
@@ -16,7 +17,8 @@ const MadrasahIbtidaiyah = () => {
                 jenjang pendidikan</p>
             </div>
         </div>
+        </div>
     )
 }
 
-export default MadrasahIbtidaiyah
+export default Smpi
