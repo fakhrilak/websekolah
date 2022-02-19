@@ -18,8 +18,8 @@ const Galerykegiatan = (props) => {
     };
   };
   return (
-    <div className="w-10/12 m-auto">
-      <div>
+    <div className="">
+      <div className="lg:w-10/12 m-auto">
         <Modal
           show={show}
           handleshow={setShow}
@@ -52,7 +52,7 @@ const Galerykegiatan = (props) => {
               if (height > width) {
                 setWidth(width / 2);
               } else {
-                setWidth("7/12");
+                setWidth("6/12");
               }
             })}
             <div className="mt-44 lg:mt-60 mr-2 lg:mr-5">
@@ -70,7 +70,7 @@ const Galerykegiatan = (props) => {
           </div>
         </Modal>
       </div>
-      <div className="pt-10">
+      <div className="pt-10 w-10/12 m-auto">
         <h1 className="font-bold text-3xl">Galery Kegiatan</h1>
         <div className="grid grid-cols-4 gap-4 pt-20">
           {kegiatan.map((data, index) => (
