@@ -3,11 +3,20 @@ import { path } from '../../config/API'
 import Modal from "../../components/Modal/Modal"
 import { BsFillCaretLeftFill, BsFillCaretRightFill } from "react-icons/bs";
 import { useMediaQuery } from 'react-responsive'
+import ImageGallery from 'react-image-gallery';
+// import "~react-image-gallery/styles/css/image-gallery.css";
 const Galeryprestasi = (props) => {
     const [prestasi,setPrestasi] = useState(props.data.prestasi)
     const [show,setShow] = useState(false)
     const [index,setIndex] = useState(null)
+    const [width,setWidth] = useState()
+    const [heigh,setHeigh] = useState()
     const isPortrait = useMediaQuery({ query: '(max-width: 800px)' })
+    const getMeta=(url, callback)=>{
+        var img = new Image();
+        img.src = url;
+        img.onload = function() { callback(this.width, this.height); }
+    }
     return prestasi.length > 0 ?(
         <div className='w-10/12 m-auto'>
             <div>
@@ -19,8 +28,8 @@ const Galeryprestasi = (props) => {
                 top={!isPortrait?'10':'20'}
                 left={isPortrait?"0":"20"}
                 >
-                    <div className="flex w-full">
-                        <div className="mt-28 lg:mt-44 mr-2 lg:mr-5">
+                    <div className="flex w-full" style={{height:isPortrait? 400:500}}>
+                        <div className="mt-44 lg:mt-60 mr-2 lg:mr-5">
                             <button
                             className="text-4xl font-bold"
                             onClick={()=>{
@@ -31,9 +40,19 @@ const Galeryprestasi = (props) => {
                             ><BsFillCaretLeftFill/></button>
                         </div>
                         <img src={path+prestasi[index]}
-                        className="h-60 m-auto w-60 lg:h-96 lg:w-7/12"
+                        className={`h-full m-auto w-60 lg:h-full lg:w-${width}`}
                         />
-                        <div className="mt-28 lg:mt-44 mr-2 lg:mr-5">
+                        {getMeta(
+                            path+prestasi[index],
+                            function(width, height) {
+                                if (height > width){
+                                    setWidth(width/2)
+                                }else{
+                                    setWidth('7/12')
+                                }
+                            }
+                        )}
+                        <div className="mt-44 lg:mt-60 mr-2 lg:mr-5">
                             <button
                             className="text-4xl font-bold"
                             onClick={()=>{
@@ -48,7 +67,7 @@ const Galeryprestasi = (props) => {
             </div>
             <div className='pt-10'>
                 <h1 className='font-bold text-3xl'>Galery Prestasi</h1>
-                <div className='grid grid-cols-2 gap-4 pt-20'>
+                <div className='grid grid-cols-4 gap-4 pt-20'>
                     {prestasi.map((data,index)=>(
                         <div>
                             <img
