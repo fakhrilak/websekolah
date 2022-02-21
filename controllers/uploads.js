@@ -88,3 +88,72 @@ exports.getFoto=async(req,res)=>{
         })
     }
 }
+
+exports.deletFoto=async(req,res)=>{
+    try{
+        const {title,filename} = req.body
+        const Cari  = await foto.find({})
+        if (title == "kegiatan"){
+            const file = Cari[0].kegiatan
+            let newArray = []
+            for(let i=0;i<file.length;i++){
+                if(file[i]!==filename){
+                    newArray.push(file[i])
+                }
+            }
+            const update = await foto.updateOne({_id:Cari[0]._id},{kegiatan:newArray})
+            return res.status(200).send({
+                message:"success",
+                data : update
+            })
+        }else if (title == "slider"){
+            const file = Cari[0].slider
+            let newArray = []
+            for(let i=0;i<file.length;i++){
+                if(file[i]!==filename){
+                    newArray.push(file[i])
+                }
+            }
+            const update = await foto.updateOne({_id:Cari[0]._id},{slider:newArray})
+            return res.status(200).send({
+                message:"success",
+                data : update
+            })
+        }else if (title == "beranda"){
+            const file = Cari[0].beranda
+            let newArray = []
+            for(let i=0;i<file.length;i++){
+                if(file[i]!==filename){
+                    newArray.push(file[i])
+                }
+            }
+            const update = await foto.updateOne({_id:Cari[0]._id},{beranda:newArray})
+            return res.status(200).send({
+                message:"success",
+                data : update
+            })
+        }else if (title == "prestasi"){
+            const file = Cari[0].prestasi
+            let newArray = []
+            for(let i=0;i<file.length;i++){
+                if(file[i]!==filename){
+                    newArray.push(file[i])
+                }
+            }
+            const update = await foto.updateOne({_id:Cari[0]._id},{prestasi:newArray})
+            return res.status(200).send({
+                message:"success",
+                data : update
+            })
+        }else{
+            return res.status(400).send({
+                message : "Please choose uploaded"
+            })
+        }
+    }catch(err){
+        console.log(err)
+        return res.status(500).send({
+            message:"Server Error"
+        })
+    }
+}
