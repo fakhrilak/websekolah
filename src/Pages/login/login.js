@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import { API, config, setAuthToken } from '../../config/API'
+import { API, config, setAuthToken, Socket } from '../../config/API'
 import { Switch, Route, Redirect, Link, useHistory } from "react-router-dom";
 const Login = () => {
     const [email,setEmail] = useState('')
@@ -7,25 +7,56 @@ const Login = () => {
     const [auth,setAuth] = useState(false)
     useEffect(()=>{
         if (localStorage.token) {
-            setAuthToken(localStorage.getItem('token'));
-            API.get("/auth",config)
-            .then((res)=>{
-                setAuth(true)
+            Socket.emit("onSend-Data",{
+                'reqto': 'sametokengenerate', 
+                'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/auth', 
+                'method': 'GET',
+                'body': "",
+                'params': '',
+                'auth': true,
+                'headers': {"Authorization": "Bearer "+localStorage.token},
+                "path":"/auth"
             })
-            .catch((err)=>{
-                setAuth(false)
+            Socket.on("res-"+Socket.id,data=>{
+                if(data.status == 200){
+                    setAuth(true)
+                }
             })
         }
     },[])
-    const Login=()=>{
+    // useEffect(async()=>{
+    //     Socket.emit("onSend-Data",{
+    //     'reqto': 'sametokengenerate', 
+    //     'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/uploads', 
+    //     'method': 'GET',
+    //     'body': "",
+    //     'params': '',
+    //     'auth': false,
+    //     'headers': "",
+    //     "path":"/uploads"
+    // })
+    // await Socket.on("res-"+Socket.id,async(data)=>{
+    // //   console.log(data,"uploads")
+    // })
+    // },[])
+    const LoginSocket=async()=>{
         let data = {email:email,password:password}
-        API.post("/login",data ,config)
-        .then((res)=>{
-            localStorage.setItem("token",res.data.token)
-            window.location.reload()
+        Socket.emit("onSend-Data",{
+        'reqto': 'sametokengenerate', 
+        'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/login', 
+        'method': 'POST',
+        'body': data,
+        'params': '',
+        'auth': false,
+        'headers': '',
+        "path":"/login"
         })
-        .catch((err)=>{
-            alert(err.response.data.message)
+        Socket.on("res-"+Socket.id,data=>{
+            if (data.status == 200){
+                const newdata = JSON.parse(data.data)
+                localStorage.setItem("token",newdata.token)
+                window.location.reload()
+            }
         })
     }
     return !auth ? (
@@ -59,7 +90,7 @@ const Login = () => {
                         <div className='flex justify-center items-center mt-6'>
                             <button
                                 className={`bg-green py-2 px-4 text-sm text-black rounded border border-green focus:outline-none focus:border-green-dark`}
-                            onClick={()=>Login()}
+                            onClick={()=>LoginSocket()}
                             >
                                 Login
                             </button>

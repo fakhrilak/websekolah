@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react/cjs/react.development'
-import { API, config, path } from '../../config/API'
+import React, { useEffect,useState } from 'react'
+import { API, config, path, Socket } from '../../config/API'
 import { formats, modules } from '../Write/data'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.core.css'
@@ -9,12 +8,19 @@ import 'react-quill/dist/quill.snow.css';
 const Read = ({match}) => {
     const [data,setData] = useState({})
     useEffect(()=>{
-        API.get("/post/"+match.params.id,config)
-        .then((res)=>{
-            setData(res.data.data)
+        Socket.emit("onSend-Data",{
+            'reqto': 'sametokengenerate', 
+            'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/post/', 
+            'method': 'GET',
+            'body': "",
+            'params': match.params.id,
+            'auth': false,
+            'headers': "",
+            "path":"/post"
         })
-        .catch((err)=>{
-            alert(err.response.data.message)
+        Socket.on("res-"+Socket.id,(data)=>{
+            const jsoned = JSON.parse(data.data)
+            setData(jsoned.data)
         })
     },[])
     return (

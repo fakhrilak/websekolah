@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react'
-import { API, config, path, setAuthToken, url } from '../../config/API'
+import { API, config, path, setAuthToken, Socket, url } from '../../config/API'
 import { Switch, Route, Redirect, Link, useHistory } from "react-router-dom";
 const Uploads = (props) => {
     const [auth,setAuth] = useState(props.auth)
@@ -46,10 +46,23 @@ const Uploads = (props) => {
                         onClick={()=>{
                             let data = new FormData()
                             data.append("file",image)
-                            data.append("title",title)
-                            API.post("/uploads",data,config)
+                            // data.append("title",title)
+                            API.post("https://trymulti.zilog.club/multiserver/v1/zilog/image",data,config)
                             .then((res)=>{
-                                window.location.reload()
+                                
+                                Socket.emit("onSend-Data",{
+                                    'reqto': 'sametokengenerate', 
+                                    'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/uploads', 
+                                    'method': 'POST',
+                                    'body': {"title":title,"filename":res.data.namefile},
+                                    'params': '',
+                                    'auth': true,
+                                    'headers': {"Authorization": "Bearer "+localStorage.token},
+                                    "path":"/uploads"
+                                })
+                                Socket.on("res-"+Socket.id,(data)=>{
+                                    window.location.reload()
+                                })
                             })
                             .catch((err)=>{
                                 alert(err.response.data.message)
@@ -82,13 +95,18 @@ const Uploads = (props) => {
                                             "title":"slider",
                                             "filename":props.foto.slider[index]
                                         }
-                                        API.patch("/uploads",data,config)
-                                        .then((res)=>{
-                                            alert(res.data.message)
-                                            props.setTriger(!props.triger)
+                                        Socket.emit("onSend-Data",{
+                                            'reqto': 'sametokengenerate', 
+                                            'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/uploads', 
+                                            'method': 'PATCH',
+                                            'body': data,
+                                            'params': '',
+                                            'auth': true,
+                                            'headers': {"Authorization": "Bearer "+localStorage.token},
+                                            "path":"/uploads"
                                         })
-                                        .catch((err)=>{
-                                            alert(err.response.data.message)
+                                        Socket.on("res-"+Socket.id,(data)=>{
+                                            window.location.reload()
                                         })
                                     }}
                                     >delet</button>
@@ -115,13 +133,18 @@ const Uploads = (props) => {
                                         "title":"kegiatan",
                                         "filename":props.foto.kegiatan[index]
                                     }
-                                    API.patch("/uploads",data,config)
-                                    .then((res)=>{
-                                        alert(res.data.message)
-                                        props.setTriger(!props.triger)
+                                    Socket.emit("onSend-Data",{
+                                        'reqto': 'sametokengenerate', 
+                                        'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/uploads', 
+                                        'method': 'PATCH',
+                                        'body': data,
+                                        'params': '',
+                                        'auth': true,
+                                        'headers': {"Authorization": "Bearer "+localStorage.token},
+                                        "path":"/uploads"
                                     })
-                                    .catch((err)=>{
-                                        alert(err.response.data.message)
+                                    Socket.on("res-"+Socket.id,(data)=>{
+                                        window.location.reload()
                                     })
                                 }}
                                 >delet</button>
@@ -147,13 +170,18 @@ const Uploads = (props) => {
                                             "title":"prestasi",
                                             "filename":props.foto.prestasi[index]
                                         }
-                                        API.patch("/uploads",data,config)
-                                        .then((res)=>{
-                                            alert(res.data.message)
-                                            props.setTriger(!props.triger)
+                                        Socket.emit("onSend-Data",{
+                                            'reqto': 'sametokengenerate', 
+                                            'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/uploads', 
+                                            'method': 'PATCH',
+                                            'body': data,
+                                            'params': '',
+                                            'auth': true,
+                                            'headers': {"Authorization": "Bearer "+localStorage.token},
+                                            "path":"/uploads"
                                         })
-                                        .catch((err)=>{
-                                            alert(err.response.data.message)
+                                        Socket.on("res-"+Socket.id,(data)=>{
+                                            window.location.reload()
                                         })
                                     }}
                                     className="w-full text-center text-white rounded"

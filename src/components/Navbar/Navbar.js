@@ -1,14 +1,13 @@
-import React from "react";
+import React,{useState} from "react";
 import { data } from "./data";
 import Dropdown from "../Dropdown/Dropdown";
 import "./navbar.css";
 import { AiFillCaretDown } from "react-icons/ai";
-import logo from "../../img/LOGO Madrasah 2.png";
+import logo from "../../img/logooooooo.png";
 import icon from "../../img/grup40.png";
 import { useHistory } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import Modal from "../Modal/Modal";
-import { useState } from "react/cjs/react.development";
 const Navbar = (props) => {
   const [show, setShow] = useState(false);
   const history = useHistory();
@@ -18,7 +17,7 @@ const Navbar = (props) => {
       {!isPortrait ? (
         <a className="float-left">
           <img
-            className="ml-5 lg:ml-20 w-10 lg:w-20 ml-2 mt-4"
+            className="ml-5 lg:ml-20 w-10 lg:w-20 mt-4"
             onClick={() => history.push("/")}
             src={logo}
           />
@@ -26,7 +25,7 @@ const Navbar = (props) => {
       ) : (
         <a className="float-left">
           <img
-            className="ml-5 lg:ml-20 w-8/12 lg:w-20 ml-2 mt-5"
+            className="ml-5 lg:ml-20 w-20 lg:w-20 mt-5"
             onClick={() => history.push("/")}
             src={logo}
           />
@@ -87,7 +86,7 @@ const Navbar = (props) => {
             </div>
           </div>
           <a onClick={() => history.push("/smpi")}>MTs – SMPI</a>
-          <div class="dropdown">
+          <div className="dropdown">
             <button className="dropbtn">
               M.Ibtidaiyah
               <i className="fa fa-caret-down"></i>

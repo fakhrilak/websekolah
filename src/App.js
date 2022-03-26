@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Foother from "./components/Foother/Foother";
 import Navbar from "./components/Navbar/Navbar";
-import { API, config, setAuthToken } from "./config/API";
+import { API, config, setAuthToken,Socket} from "./config/API";
 import Galerykegiatan from "./Pages/Galery/Galery-kegiatan";
 import Galeryprestasi from "./Pages/Galery/Galeryprestasi";
 import Home from "./Pages/Home/Home";
@@ -17,30 +17,49 @@ import Smpi from "./Pages/Smpi/Smpi";
 import Tk from "./Pages/TK/Tk";
 import Uploads from "./Pages/Uploads/Uploads";
 import Write from "./Pages/Write/Write";
-function App() {
+
+const App=()=>{
   const [data, setdata] = useState();
   const [auth, setAuth] = useState(false);
   const [triger, setTriger] = useState(false);
-  useEffect(() => {
-    if (localStorage.token) {
-      setAuthToken(localStorage.getItem("token"));
-      API.get("/auth")
-        .then((res) => {
-          setAuth(true);
+  useEffect(()=>{
+    Socket.on("connect", () => {
+      if (localStorage.token) {
+        Socket.emit("onSend-Data",{
+            'reqto': 'sametokengenerate', 
+            'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/auth', 
+            'method': 'GET',
+            'body': "",
+            'params': '',
+            'auth': true,
+            'headers': {"Authorization": "Bearer "+localStorage.token},
+            "path":"/auth"
         })
-        .catch((err) => {
-          alert(err.response.data.message);
-        });
     }
-    API.get("/uploads", config)
-      .then((res) => {
-        setdata(res.data.data);
-      })
-      .catch((err) => {
-        alert("please contact developer");
-      });
-  }, [triger]);
-  return data ? (
+
+    Socket.emit("onSend-Data",{
+      'reqto': 'sametokengenerate', 
+      'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/uploads/', 
+      'method': 'GET',
+      'body': "",
+      'params': '',
+      'auth': false,
+      'headers': "",
+      "path":"/uploads-GET"
+    }) 
+    Socket.on("res-"+Socket.id,(data)=>{
+      if(data.path =="/auth"){
+        if (data.status == 200){
+          setAuth(true)
+        }
+      }else if(data.path == "/uploads-GET"){
+        const newdata = JSON.parse(data.data)
+        setdata(newdata.data)
+      }
+    })
+    });
+  },[])
+  return data? (
     <div className="w-full">
       <Router>
         <div>

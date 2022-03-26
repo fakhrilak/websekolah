@@ -8,7 +8,7 @@ import SimpleImageSlider from "react-simple-image-slider";
 import gambar1 from "../../img/gambar1.png";
 import gambar2 from "../../img/img1.jpeg";
 import donasi1 from "../../img/donasi 1.png";
-import { API, config, path, url } from "../../config/API";
+import { API, config, path, Socket, url } from "../../config/API";
 import { useHistory } from "react-router-dom";
 import dayjs from "dayjs";
 import { useMediaQuery } from "react-responsive";
@@ -24,13 +24,20 @@ const Home = (props) => {
   const history = useHistory();
   const { innerWidth: width, innerHeight: height } = window;
   useEffect(() => {
-    API.get("/post", config)
-      .then((res) => {
-        setData(res.data.data);
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-      });
+    Socket.emit("onSend-Data",{
+      'reqto': 'sametokengenerate', 
+      'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/post', 
+      'method': 'GET',
+      'body': "",
+      'params': '',
+      'auth': false,
+      'headers': "",
+      "path":"/post"
+    })
+    Socket.on("res-"+Socket.id,(data)=>{
+        const jsoned = JSON.parse(data.data)
+        setData(jsoned.data)
+    })
   }, []);
   return (
     <div>

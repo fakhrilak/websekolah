@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Redirect, useHistory } from 'react-router-dom';
-import { API,config, path,setAuthToken } from '../../config/API';
+import { API,config, path,setAuthToken, Socket } from '../../config/API';
 import {formats,modules} from "./data"
 const Write = (props) => {
     const [editor,setEditor] =useState("")
@@ -13,27 +13,46 @@ const Write = (props) => {
     const [imagepreview,setImagePreview] = useState(null)
     useEffect(()=>{
         if (localStorage.token) {
-          setAuthToken(localStorage.getItem('token'))
-          API.get("/auth")
-          .then((res)=>{
-              setAuth(true)
-              setUser(res.data.data)
-              console.log(user,"ini useer")
-          })
-          .catch((err)=>{
-            alert(err.response.data.message)
-          })
+            Socket.emit("onSend-Data",{
+                'reqto': 'sametokengenerate', 
+                'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/auth', 
+                'method': 'GET',
+                'body': "",
+                'params': '',
+                'auth': true,
+                'headers': {"Authorization": "Bearer "+localStorage.token},
+                "path":"/auth"
+            })
+            Socket.on("res-"+Socket.id,(data)=>{
+                if(data.path =="/auth"){
+                  if (data.status == 200){
+                    setAuth(true)
+                  }
+                }
+              })
         }
       },[])
     const onClick = ()=>{
         const data = new FormData()
-        data.append("judul",judul)
-        data.append("content",editor)
-        data.append("idUser","61fc15ea0d976673177c561e")
+        // data.append("judul",judul)
+        // data.append("content",editor)
+        // data.append("idUser","61fc15ea0d976673177c561e")
         data.append("file",image)
-        API.post("/post",data,config)
+        API.post("https://trymulti.zilog.club/multiserver/v1/zilog/image",data,config)
         .then((res)=>{
-            alert(res.data.message)
+            Socket.emit("onSend-Data",{
+                'reqto': 'sametokengenerate', 
+                'endpoint': 'http://192.168.100.38:4008/be/v1/mansyuriyah/post', 
+                'method': 'POST',
+                'body': {"judul":judul,"filename":res.data.namefile,"content":editor,'idUser':"61fc15ea0d976673177c561e"},
+                'params': '',
+                'auth': true,
+                'headers': {"Authorization": "Bearer "+localStorage.token},
+                "path":"/post"
+            })
+            Socket.on("res-"+Socket.id,(data)=>{
+                window.location.reload()
+            })
             
         })
         .catch((err)=>{
